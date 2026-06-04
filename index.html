@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CYBORG X — Techfest IIT Bombay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+/* ===== RESET & ROOT ===== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#050816;
+  --bg2:#080d1f;
+  --cyan:#00f7ff;
+  --purple:#6c63ff;
+  --red:#ff2e63;
+  --white:#ffffff;
+  --dim:#8892b0;
+  --card:#0d1426;
+  --border:rgba(0,247,255,0.15);
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:'Rajdhani',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ===== CUSTOM CURSOR ===== */
+#cursor{
+  position:fixed;width:20px;height:20px;border:2px solid var(--cyan);
+  border-radius:50%;pointer-events:none;z-index:9999;
+  transition:transform .1s,border-color .2s;
+  box-shadow:0 0 10px var(--cyan),0 0 20px var(--cyan);
+  transform:translate(-50%,-50%);
+}
+#cursor-dot{
+  position:fixed;width:5px;height:5px;background:var(--cyan);
+  border-radius:50%;pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 6px var(--cyan);
+}
+body:hover #cursor{opacity:1;}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:2px;}
+
+/* ===== NAVBAR ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:70px;
+  background:rgba(5,8,22,0.7);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Orbitron',monospace;font-weight:900;font-size:1.4rem;
+  color:var(--cyan);letter-spacing:4px;
+  text-shadow:0 0 20px var(--cyan),0 0 40px var(--cyan);
+}
+.nav-logo span{color:var(--purple);}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+.nav-links a{
+  color:var(--dim);font-family:'Rajdhani',sans-serif;font-weight:600;
+  font-size:0.9rem;letter-spacing:2px;text-decoration:none;
+  text-transform:uppercase;transition:color .3s,text-shadow .3s;
+}
+.nav-links a:hover{color:var(--cyan);text-shadow:0 0 10px var(--cyan);}
+.nav-btn{
+  background:transparent;border:1px solid var(--cyan);
+  color:var(--cyan);padding:.5rem 1.5rem;font-family:'Orbitron',monospace;
+  font-size:.75rem;letter-spacing:2px;cursor:none;
+  transition:all .3s;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+}
+.nav-btn:hover{background:var(--cyan);color:var(--bg);box-shadow:0 0 20px var(--cyan);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:none;border:none;background:none;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--cyan);}
+
+/* ===== HERO ===== */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:100px 5% 60px;position:relative;overflow:hidden;
+}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%;}
+.hero-tag{
+  display:inline-block;font-family:'Share Tech Mono',monospace;font-size:.8rem;
+  color:var(--cyan);letter-spacing:3px;border:1px solid var(--border);
+  padding:.4rem 1rem;margin-bottom:1.5rem;
+  animation:fadeSlideDown .8s ease both;
+}
+.hero-tag::before{content:'>> ';}
+.hero-h1{
+  font-family:'Orbitron',monospace;font-size:clamp(2rem,4vw,3.5rem);
+  font-weight:900;line-height:1.1;text-transform:uppercase;
+  animation:fadeSlideUp .9s .2s ease both;
+}
+.hero-h1 .line1{color:var(--white);}
+.hero-h1 .line2{
+  color:transparent;
+  -webkit-text-stroke:2px var(--cyan);
+  text-shadow:0 0 30px rgba(0,247,255,.3);
+}
+.hero-h1 .accent{color:var(--cyan);}
+.hero-sub{
+  font-size:1.1rem;color:var(--dim);line-height:1.8;margin:1.5rem 0 2.5rem;
+  font-weight:300;letter-spacing:1px;
+  animation:fadeSlideUp .9s .4s ease both;
+}
+.hero-sub span{color:var(--cyan);}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeSlideUp .9s .6s ease both;}
+.btn-primary{
+  background:var(--cyan);color:var(--bg);padding:.85rem 2rem;
+  font-family:'Orbitron',monospace;font-size:.8rem;letter-spacing:2px;
+  font-weight:700;border:none;cursor:none;
+  clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
+  transition:all .3s;box-shadow:0 0 20px rgba(0,247,255,.4);
+}
+.btn-primary:hover{background:var(--bg);color:var(--cyan);box-shadow:0 0 30px var(--cyan);}
+.btn-outline{
+  background:transparent;color:var(--white);padding:.85rem 2rem;
+  font-family:'Orbitron',monospace;font-size:.8rem;letter-spacing:2px;
+  border:1px solid rgba(255,255,255,.3);cursor:none;
+  clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
+  transition:all .3s;
+}
+.btn-outline:hover{border-color:var(--purple);color:var(--purple);box-shadow:0 0 20px rgba(108,99,255,.4);}
+
+/* ===== CYBORG SVG ===== */
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:center;animation:fadeSlideUp .9s .3s ease both;}
+.cyborg-wrap{position:relative;width:400px;height:400px;}
+.cyborg-svg{width:100%;height:100%;filter:drop-shadow(0 0 20px rgba(0,247,255,.5));}
+.orbit{position:absolute;border-radius:50%;border:1px dashed rgba(0,247,255,.25);top:50%;left:50%;transform:translate(-50%,-50%);}
+.orbit1{width:320px;height:320px;animation:spin 12s linear infinite;}
+.orbit2{width:420px;height:420px;animation:spin 20s linear infinite reverse;}
+.orbit3{width:520px;height:520px;animation:spin 30s linear infinite;}
+.orb-dot{position:absolute;width:8px;height:8px;background:var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan);top:0;left:50%;transform:translate(-50%,-50%);}
+.particle{
+  position:absolute;width:4px;height:4px;background:var(--cyan);border-radius:50%;
+  box-shadow:0 0 6px var(--cyan);animation:float-p 3s ease-in-out infinite;
+}
+.grid-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,247,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,247,255,.03) 1px,transparent 1px);
+  background-size:50px 50px;
+}
+.scan-line{
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  animation:scan 4s linear infinite;opacity:.6;
+}
+
+/* ===== STATS ===== */
+#stats{padding:80px 5%;background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;max-width:1100px;margin:0 auto;}
+.stat-card{
+  background:var(--card);border:1px solid var(--border);
+  padding:2rem;text-align:center;position:relative;overflow:hidden;
+  clip-path:polygon(15px 0%,100% 0%,calc(100% - 15px) 100%,0% 100%);
+  transition:transform .3s,box-shadow .3s;
+}
+.stat-card:hover{transform:translateY(-5px);box-shadow:0 0 30px rgba(0,247,255,.2);}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);}
+.stat-num{
+  font-family:'Orbitron',monospace;font-size:2.5rem;font-weight:900;
+  color:var(--cyan);text-shadow:0 0 20px var(--cyan);
+}
+.stat-label{font-size:1rem;color:var(--dim);letter-spacing:2px;text-transform:uppercase;margin-top:.5rem;}
+
+/* ===== SECTION HEADER ===== */
+.section-header{text-align:center;margin-bottom:4rem;}
+.section-tag{font-family:'Share Tech Mono',monospace;font-size:.8rem;color:var(--cyan);letter-spacing:3px;}
+.section-tag::before{content:'// ';}
+.section-title{
+  font-family:'Orbitron',monospace;font-size:clamp(1.8rem,3vw,2.8rem);
+  font-weight:900;text-transform:uppercase;margin:.5rem 0;
+}
+.section-line{width:60px;height:2px;background:var(--cyan);margin:.5rem auto;box-shadow:0 0 10px var(--cyan);}
+
+/* ===== ABOUT ===== */
+#about{padding:100px 5%;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1100px;margin:0 auto;}
+.about-visual{position:relative;}
+.about-img{
+  width:100%;aspect-ratio:1;background:var(--card);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  clip-path:polygon(20px 0%,100% 0%,calc(100% - 20px) 100%,0% 100%);
+}
+.about-corner{position:absolute;width:20px;height:20px;border-color:var(--cyan);border-style:solid;}
+.about-corner.tl{top:-2px;left:-2px;border-width:2px 0 0 2px;}
+.about-corner.tr{top:-2px;right:-2px;border-width:2px 2px 0 0;}
+.about-corner.bl{bottom:-2px;left:-2px;border-width:0 0 2px 2px;}
+.about-corner.br{bottom:-2px;right:-2px;border-width:0 2px 2px 0;}
+.about-text p{font-size:1.1rem;color:var(--dim);line-height:1.9;margin-bottom:1.5rem;}
+.about-text p span{color:var(--cyan);}
+.about-stats{display:flex;gap:2rem;margin-top:2rem;}
+.a-stat{text-align:center;}
+.a-stat .num{font-family:'Orbitron',monospace;font-size:1.5rem;color:var(--purple);}
+.a-stat .lbl{font-size:.8rem;color:var(--dim);letter-spacing:1px;}
+
+/* ===== AUGMENTS ===== */
+#augments{padding:100px 5%;background:var(--bg2);}
+.aug-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;max-width:1200px;margin:0 auto;}
+.aug-card{
+  background:var(--card);border:1px solid var(--border);padding:2rem;
+  position:relative;overflow:hidden;transition:all .4s;cursor:none;
+  clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));
+}
+.aug-card:hover{
+  border-color:var(--cyan);transform:translateY(-8px) scale(1.02);
+  box-shadow:0 0 40px rgba(0,247,255,.25),inset 0 0 40px rgba(0,247,255,.05);
+}
+.aug-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,247,255,.05),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.aug-card:hover::after{opacity:1;}
+.aug-icon{font-size:2.5rem;margin-bottom:1rem;}
+.aug-card h3{font-family:'Orbitron',monospace;font-size:1rem;color:var(--cyan);margin-bottom:.8rem;letter-spacing:2px;}
+.aug-card p{color:var(--dim);font-size:.95rem;line-height:1.6;}
+.aug-badge{
+  position:absolute;top:1rem;right:1rem;font-family:'Share Tech Mono',monospace;
+  font-size:.65rem;color:var(--purple);border:1px solid var(--purple);
+  padding:.2rem .5rem;letter-spacing:1px;
+}
+
+/* ===== FEATURES ===== */
+#features{padding:100px 5%;}
+.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;max-width:1200px;margin:0 auto;}
+.feat-card{
+  background:var(--card);border:1px solid var(--border);
+  padding:2rem;text-align:center;transition:all .3s;
+}
+.feat-card:hover{border-color:var(--purple);box-shadow:0 0 30px rgba(108,99,255,.2);}
+.feat-icon{
+  width:60px;height:60px;border:1px solid var(--border);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;margin:0 auto 1rem;background:var(--bg);
+  transition:all .3s;
+}
+.feat-card:hover .feat-icon{border-color:var(--purple);box-shadow:0 0 20px rgba(108,99,255,.4);}
+.feat-card h3{font-family:'Orbitron',monospace;font-size:.9rem;color:var(--white);margin-bottom:.8rem;letter-spacing:1px;}
+.feat-card p{color:var(--dim);font-size:.9rem;line-height:1.6;}
+
+/* ===== TIMELINE ===== */
+#timeline{padding:100px 5%;background:var(--bg2);overflow:hidden;}
+.timeline-wrap{max-width:1000px;margin:0 auto;position:relative;}
+.timeline-line{
+  position:absolute;top:50%;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--border),var(--cyan),var(--border),transparent);
+  transform:translateY(-50%);
+}
+.timeline-track{display:flex;justify-content:space-between;position:relative;padding:2rem 0;}
+.tl-item{text-align:center;position:relative;flex:1;cursor:none;}
+.tl-dot{
+  width:18px;height:18px;background:var(--bg);border:2px solid var(--cyan);
+  border-radius:50%;margin:0 auto;position:relative;z-index:2;
+  box-shadow:0 0 15px var(--cyan);transition:all .4s;
+}
+.tl-item.active .tl-dot{background:var(--cyan);box-shadow:0 0 25px var(--cyan),0 0 50px var(--cyan);}
+.tl-item:hover .tl-dot{transform:scale(1.5);background:var(--cyan);}
+.tl-year{font-family:'Orbitron',monospace;font-size:.85rem;color:var(--cyan);margin-top:1rem;font-weight:700;}
+.tl-label{font-size:.85rem;color:var(--dim);margin-top:.3rem;letter-spacing:1px;}
+
+/* ===== COMPARISON ===== */
+#comparison{padding:100px 5%;}
+.comp-wrap{max-width:900px;margin:0 auto;}
+.comp-table{width:100%;border-collapse:collapse;overflow:hidden;}
+.comp-table th{
+  font-family:'Orbitron',monospace;font-size:.9rem;letter-spacing:2px;
+  padding:1.2rem 2rem;text-align:center;
+}
+.comp-table th.human{background:rgba(255,255,255,.05);color:var(--dim);}
+.comp-table th.vs{background:transparent;color:var(--red);font-size:1.2rem;}
+.comp-table th.cyborg{background:rgba(0,247,255,.08);color:var(--cyan);}
+.comp-table td{padding:1rem 2rem;text-align:center;border-top:1px solid var(--border);font-size:.95rem;}
+.comp-table td.human-td{color:var(--dim);}
+.comp-table td.vs-td{color:var(--border);font-size:.8rem;}
+.comp-table td.cyborg-td{color:var(--cyan);font-weight:600;}
+.comp-table tr:hover td{background:rgba(0,247,255,.03);}
+
+/* ===== TESTIMONIALS ===== */
+#testimonials{padding:100px 5%;background:var(--bg2);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:1100px;margin:0 auto;}
+.testi-card{
+  background:var(--card);border:1px solid var(--border);
+  padding:2.5rem;position:relative;transition:all .3s;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%);
+}
+.testi-card:hover{border-color:var(--purple);transform:translateY(-5px);box-shadow:0 0 30px rgba(108,99,255,.15);}
+.testi-card::before{
+  content:'"';position:absolute;top:-10px;left:1.5rem;
+  font-family:'Orbitron',monospace;font-size:5rem;color:rgba(0,247,255,.1);line-height:1;
+}
+.testi-text{font-size:1.05rem;color:var(--white);line-height:1.7;margin-bottom:1.5rem;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:1rem;}
+.testi-avatar{
+  width:45px;height:45px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--cyan));
+  display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;
+  font-size:.9rem;font-weight:700;color:var(--bg);
+}
+.testi-name{font-family:'Orbitron',monospace;font-size:.8rem;color:var(--cyan);letter-spacing:1px;}
+.testi-role{font-size:.8rem;color:var(--dim);}
+.star-row{margin-bottom:.8rem;}
+.star-row span{color:var(--cyan);font-size:.9rem;}
+
+/* ===== CTA ===== */
+#cta{
+  padding:120px 5%;text-align:center;position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(0,247,255,.07) 0%,transparent 70%);
+}
+.cta-tag{font-family:'Share Tech Mono',monospace;font-size:.9rem;color:var(--cyan);letter-spacing:4px;margin-bottom:1rem;display:block;}
+.cta-h2{
+  font-family:'Orbitron',monospace;font-size:clamp(2rem,5vw,4rem);
+  font-weight:900;text-transform:uppercase;line-height:1.1;margin-bottom:1.5rem;
+}
+.cta-h2 span{
+  color:transparent;-webkit-text-stroke:2px var(--cyan);
+  text-shadow:0 0 30px rgba(0,247,255,.3);
+}
+.cta-sub{color:var(--dim);font-size:1.1rem;max-width:500px;margin:0 auto 3rem;line-height:1.7;}
+.btn-cta{
+  display:inline-block;background:linear-gradient(90deg,var(--cyan),var(--purple));
+  color:var(--bg);padding:1.2rem 3rem;font-family:'Orbitron',monospace;
+  font-size:.9rem;letter-spacing:3px;font-weight:700;border:none;cursor:none;
+  clip-path:polygon(15px 0%,100% 0%,calc(100% - 15px) 100%,0% 100%);
+  transition:all .3s;box-shadow:0 0 30px rgba(0,247,255,.3);
+  text-decoration:none;
+}
+.btn-cta:hover{transform:scale(1.05);box-shadow:0 0 60px rgba(0,247,255,.6);}
+.cta-bg-text{
+  position:absolute;font-family:'Orbitron',monospace;font-size:15vw;
+  font-weight:900;color:rgba(0,247,255,.02);top:50%;left:50%;
+  transform:translate(-50%,-50%);white-space:nowrap;z-index:0;pointer-events:none;
+  letter-spacing:-2vw;
+}
+#cta>*:not(.cta-bg-text){position:relative;z-index:1;}
+
+/* ===== FOOTER ===== */
+footer{
+  padding:3rem 5%;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.footer-logo{font-family:'Orbitron',monospace;font-weight:900;color:var(--cyan);font-size:1.1rem;letter-spacing:3px;}
+.footer-info{text-align:center;}
+.footer-info p{font-size:.85rem;color:var(--dim);}
+.footer-info a{color:var(--cyan);text-decoration:none;}
+.footer-info a:hover{text-shadow:0 0 10px var(--cyan);}
+.footer-credit{font-size:.85rem;color:var(--dim);text-align:right;}
+.footer-credit span{color:var(--purple);}
+
+/* ===== AI CHAT BUTTON ===== */
+#ai-btn{
+  position:fixed;bottom:2rem;right:2rem;z-index:500;
+  width:55px;height:55px;background:linear-gradient(135deg,var(--purple),var(--cyan));
+  border-radius:50%;border:none;cursor:none;
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+  box-shadow:0 0 20px rgba(108,99,255,.5);transition:all .3s;
+  animation:pulse-btn 2s ease-in-out infinite;
+}
+#ai-btn:hover{transform:scale(1.1);box-shadow:0 0 40px rgba(108,99,255,.8);}
+#ai-panel{
+  position:fixed;bottom:5rem;right:2rem;z-index:499;
+  width:300px;background:rgba(8,13,31,.95);border:1px solid var(--border);
+  backdrop-filter:blur(20px);padding:1.5rem;
+  clip-path:polygon(0 0,calc(100% - 15px) 0,100% 15px,100% 100%,0 100%);
+  display:none;
+}
+#ai-panel.open{display:block;animation:fadeSlideUp .3s ease;}
+#ai-panel h4{font-family:'Orbitron',monospace;font-size:.8rem;color:var(--cyan);margin-bottom:1rem;letter-spacing:2px;}
+#ai-msgs{max-height:200px;overflow-y:auto;margin-bottom:1rem;font-size:.85rem;color:var(--dim);line-height:1.6;}
+#ai-msgs .bot{color:var(--cyan);}
+#ai-msgs .user{color:var(--white);text-align:right;margin-top:.5rem;}
+#ai-input-wrap{display:flex;gap:.5rem;}
+#ai-input{
+  flex:1;background:var(--bg);border:1px solid var(--border);
+  color:var(--white);padding:.5rem .8rem;font-family:'Rajdhani',sans-serif;font-size:.85rem;
+  outline:none;cursor:none;
+}
+#ai-input:focus{border-color:var(--cyan);}
+#ai-send{
+  background:var(--cyan);color:var(--bg);border:none;padding:.5rem .8rem;
+  font-family:'Orbitron',monospace;font-size:.7rem;cursor:none;transition:all .3s;
+}
+#ai-send:hover{background:var(--purple);color:var(--white);}
+
+/* ===== MUSIC TOGGLE ===== */
+#music-btn{
+  position:fixed;bottom:2rem;left:2rem;z-index:500;
+  width:55px;height:55px;background:var(--card);border:1px solid var(--border);
+  border-radius:50%;cursor:none;display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;transition:all .3s;
+}
+#music-btn:hover{border-color:var(--cyan);box-shadow:0 0 20px rgba(0,247,255,.3);}
+#music-btn.playing{border-color:var(--cyan);box-shadow:0 0 20px var(--cyan);animation:pulse-btn 1s ease-in-out infinite;}
+
+/* ===== THEME TOGGLE ===== */
+#theme-btn{
+  position:fixed;bottom:6.5rem;left:2rem;z-index:500;
+  width:45px;height:45px;background:var(--card);border:1px solid var(--border);
+  border-radius:50%;cursor:none;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all .3s;
+}
+#theme-btn:hover{border-color:var(--yellow,var(--cyan));}
+
+/* ===== LIGHT THEME ===== */
+body.light{
+  --bg:#f0f4ff;--bg2:#e0e8ff;--card:#ffffff;--white:#0a0f1e;
+  --dim:#4a5080;--border:rgba(108,99,255,.2);
+}
+body.light nav{background:rgba(240,244,255,0.85);}
+
+/* ===== KEYFRAMES ===== */
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeSlideDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg);}}
+@keyframes float-p{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-20px) scale(1.2);}}
+@keyframes scan{0%{top:0;}100%{top:100%;}}
+@keyframes pulse-btn{0%,100%{box-shadow:0 0 20px rgba(108,99,255,.4);}50%{box-shadow:0 0 35px rgba(108,99,255,.8);}}
+@keyframes glitch{
+  0%,100%{clip-path:inset(0 0 98% 0);}
+  10%{clip-path:inset(30% 0 50% 0);transform:translate(-3px);}
+  20%{clip-path:inset(60% 0 20% 0);transform:translate(3px);}
+  30%{clip-path:inset(80% 0 5% 0);transform:translate(-2px);}
+  40%{clip-path:inset(10% 0 75% 0);transform:translate(2px);}
+  50%{clip-path:inset(0 0 0 0);transform:translate(0);}
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .hero-grid,.about-grid{grid-template-columns:1fr;}
+  .hero-visual{order:-1;}
+  .cyborg-wrap{width:280px;height:280px;}
+  .orbit1{width:220px;height:220px;}
+  .orbit2{width:300px;height:300px;}
+  .orbit3{width:370px;height:370px;}
+  .stats-grid,.aug-grid,.feat-grid,.testi-grid{grid-template-columns:1fr 1fr;}
+  .timeline-track{flex-direction:column;align-items:flex-start;padding-left:40px;}
+  .timeline-line{top:0;bottom:0;left:10px;right:auto;width:2px;height:auto;}
+  .tl-item{text-align:left;display:flex;align-items:center;gap:1rem;margin-bottom:2rem;}
+  .tl-year,.tl-label{margin:0;}
+  .nav-links{display:none;position:fixed;top:70px;left:0;right:0;background:rgba(5,8,22,.98);flex-direction:column;padding:2rem;gap:1.5rem;}
+  .nav-links.open{display:flex;}
+  .hamburger{display:flex;}
+}
+@media(max-width:600px){
+  .stats-grid,.aug-grid,.feat-grid,.testi-grid{grid-template-columns:1fr;}
+  .hero-h1{font-size:2rem;}
+  footer{flex-direction:column;text-align:center;}
+  .footer-credit{text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-dot"></div>
+
+<!-- GRID & SCAN BG -->
+<div class="grid-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></div>
+<div class="scan-line" style="position:fixed;z-index:0;"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">CYBORG<span>X</span></div>
+  <button class="hamburger" id="hamburger" aria-label="menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#augments">Augments</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#cta">Contact</a></li>
+    <li><button class="nav-btn" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">LAUNCH</button></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-tag">TECHFEST IIT BOMBAY — CYBORG INITIATIVE</div>
+      <h1 class="hero-h1">
+        <div class="line1">THE FUTURE IS</div>
+        <div class="line2">NOT HUMAN.</div>
+        <div>IT'S <span class="accent">CYBORG.</span></div>
+      </h1>
+      <p class="hero-sub">
+        Upgrade your body.<br>
+        <span>Enhance your mind.</span><br>
+        Redefine reality.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="document.getElementById('augments').scrollIntoView({behavior:'smooth'})">EXPLORE AUGMENTS</button>
+        <button class="btn-outline" onclick="document.getElementById('timeline').scrollIntoView({behavior:'smooth'})">WATCH DEMO</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="cyborg-wrap">
+        <div class="orbit orbit1"><div class="orb-dot"></div></div>
+        <div class="orbit orbit2"><div class="orb-dot"></div></div>
+        <div class="orbit orbit3"><div class="orb-dot"></div></div>
+        <!-- CYBORG SVG ILLUSTRATION -->
+        <svg class="cyborg-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Body -->
+          <ellipse cx="200" cy="280" rx="80" ry="90" fill="#0d1426" stroke="#00f7ff" stroke-width="1.5" opacity="0.9"/>
+          <!-- Chest circuit lines -->
+          <line x1="160" y1="260" x2="200" y2="260" stroke="#00f7ff" stroke-width="1" opacity="0.5"/>
+          <line x1="200" y1="260" x2="240" y2="260" stroke="#00f7ff" stroke-width="1" opacity="0.5"/>
+          <line x1="200" y1="240" x2="200" y2="300" stroke="#00f7ff" stroke-width="1" opacity="0.5"/>
+          <circle cx="200" cy="260" r="6" fill="#00f7ff" opacity="0.8"/>
+          <circle cx="200" cy="260" r="12" fill="none" stroke="#00f7ff" stroke-width="1" opacity="0.4"/>
+          <!-- Chest glow core -->
+          <circle cx="200" cy="260" r="20" fill="rgba(0,247,255,0.1)" stroke="#6c63ff" stroke-width="1"/>
+          <circle cx="200" cy="260" r="30" fill="none" stroke="#6c63ff" stroke-width="0.5" opacity="0.5"/>
+          <!-- Head -->
+          <rect x="155" y="100" width="90" height="100" rx="12" fill="#0d1426" stroke="#00f7ff" stroke-width="1.5"/>
+          <!-- Face plate detail -->
+          <rect x="165" y="110" width="70" height="80" rx="8" fill="#050816" stroke="#6c63ff" stroke-width="1" opacity="0.6"/>
+          <!-- Eyes -->
+          <ellipse cx="180" cy="140" rx="12" ry="8" fill="#00f7ff" opacity="0.9"/>
+          <ellipse cx="220" cy="140" rx="12" ry="8" fill="#00f7ff" opacity="0.9"/>
+          <!-- Eye glow -->
+          <ellipse cx="180" cy="140" rx="8" ry="5" fill="white" opacity="0.5"/>
+          <ellipse cx="220" cy="140" rx="8" ry="5" fill="white" opacity="0.5"/>
+          <!-- Eye animated glow filters via circle overlays -->
+          <circle cx="180" cy="140" r="16" fill="none" stroke="#00f7ff" stroke-width="1" opacity="0.4">
+            <animate attributeName="r" values="16;22;16" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.4;0.1;0.4" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="220" cy="140" r="16" fill="none" stroke="#00f7ff" stroke-width="1" opacity="0.4">
+            <animate attributeName="r" values="16;22;16" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.4;0.1;0.4" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Mouth scanner -->
+          <rect x="175" y="168" width="50" height="6" rx="3" fill="#6c63ff" opacity="0.7">
+            <animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.5s" repeatCount="indefinite"/>
+          </rect>
+          <!-- Head side details -->
+          <line x1="155" y1="125" x2="140" y2="120" stroke="#00f7ff" stroke-width="1.5" opacity="0.6"/>
+          <line x1="155" y1="135" x2="138" y2="133" stroke="#00f7ff" stroke-width="1" opacity="0.4"/>
+          <line x1="245" y1="125" x2="260" y2="120" stroke="#00f7ff" stroke-width="1.5" opacity="0.6"/>
+          <line x1="245" y1="135" x2="262" y2="133" stroke="#00f7ff" stroke-width="1" opacity="0.4"/>
+          <!-- Head top antennas -->
+          <line x1="185" y1="100" x2="180" y2="75" stroke="#00f7ff" stroke-width="1.5" opacity="0.7"/>
+          <circle cx="180" cy="72" r="4" fill="#ff2e63">
+            <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite"/>
+          </circle>
+          <line x1="215" y1="100" x2="220" y2="75" stroke="#6c63ff" stroke-width="1.5" opacity="0.7"/>
+          <circle cx="220" cy="72" r="4" fill="#6c63ff">
+            <animate attributeName="opacity" values="1;0.2;1" dur="1.3s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Neck -->
+          <rect x="185" y="196" width="30" height="20" rx="4" fill="#0d1426" stroke="#00f7ff" stroke-width="1"/>
+          <!-- Arms -->
+          <rect x="90" y="210" width="55" height="18" rx="9" fill="#0d1426" stroke="#00f7ff" stroke-width="1.5"/>
+          <rect x="255" y="210" width="55" height="18" rx="9" fill="#0d1426" stroke="#6c63ff" stroke-width="1.5"/>
+          <!-- Arm circuits -->
+          <line x1="95" y1="219" x2="140" y2="219" stroke="#00f7ff" stroke-width="0.8" opacity="0.5"/>
+          <line x1="260" y1="219" x2="305" y2="219" stroke="#6c63ff" stroke-width="0.8" opacity="0.5"/>
+          <!-- Hands -->
+          <circle cx="82" cy="219" r="14" fill="#0d1426" stroke="#00f7ff" stroke-width="1.5"/>
+          <circle cx="318" cy="219" r="14" fill="#0d1426" stroke="#6c63ff" stroke-width="1.5"/>
+          <!-- Hologram display from left hand -->
+          <ellipse cx="82" cy="195" rx="25" ry="15" fill="none" stroke="#00f7ff" stroke-width="0.8" opacity="0.4">
+            <animate attributeName="ry" values="15;20;15" dur="3s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="82" cy="185" rx="18" ry="10" fill="rgba(0,247,255,0.08)" stroke="#00f7ff" stroke-width="0.5" opacity="0.6"/>
+          <!-- Data lines from hologram -->
+          <line x1="65" y1="180" x2="99" y2="180" stroke="#00f7ff" stroke-width="0.5" opacity="0.5"/>
+          <line x1="68" y1="175" x2="96" y2="175" stroke="#00f7ff" stroke-width="0.5" opacity="0.3"/>
+          <!-- Legs -->
+          <rect x="165" y="365" width="28" height="22" rx="6" fill="#0d1426" stroke="#00f7ff" stroke-width="1.5"/>
+          <rect x="207" y="365" width="28" height="22" rx="6" fill="#0d1426" stroke="#00f7ff" stroke-width="1.5"/>
+          <!-- Spine line -->
+          <line x1="200" y1="216" x2="200" y2="360" stroke="#6c63ff" stroke-width="1" opacity="0.5" stroke-dasharray="4 4"/>
+          <!-- Floating data particles -->
+          <circle cx="310" cy="160" r="3" fill="#6c63ff" opacity="0.8">
+            <animate attributeName="cy" values="160;145;160" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="330" cy="180" r="2" fill="#00f7ff" opacity="0.6">
+            <animate attributeName="cy" values="180;160;180" dur="2.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="75" cy="290" r="3" fill="#ff2e63" opacity="0.7">
+            <animate attributeName="cy" values="290;270;290" dur="1.8s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="320" cy="300" r="2" fill="#00f7ff" opacity="0.5">
+            <animate attributeName="cy" values="300;280;300" dur="3s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-card reveal">
+      <div class="stat-num" data-target="5000">0</div>
+      <div class="stat-label">Neural Implants</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-num" data-target="999" data-suffix=".9%">0</div>
+      <div class="stat-label">System Accuracy</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-num" data-target="250">0</div>
+      <div class="stat-label">Cyber Upgrades</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-num" data-target="2050">0</div>
+      <div class="stat-label">Launch Year</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <div class="section-tag">About the Project</div>
+    <h2 class="section-title">The <span style="color:var(--cyan)">Cyborg</span> Initiative</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-img">
+        <svg viewBox="0 0 300 300" width="100%">
+          <!-- Circuit board art -->
+          <rect width="300" height="300" fill="#050816"/>
+          <line x1="50" y1="150" x2="250" y2="150" stroke="#00f7ff" stroke-width="0.5" opacity="0.3"/>
+          <line x1="150" y1="50" x2="150" y2="250" stroke="#00f7ff" stroke-width="0.5" opacity="0.3"/>
+          <circle cx="150" cy="150" r="80" fill="none" stroke="#00f7ff" stroke-width="1" opacity="0.3" stroke-dasharray="8 4"/>
+          <circle cx="150" cy="150" r="55" fill="none" stroke="#6c63ff" stroke-width="1" opacity="0.4"/>
+          <circle cx="150" cy="150" r="30" fill="rgba(0,247,255,0.1)" stroke="#00f7ff" stroke-width="2"/>
+          <text x="150" y="155" text-anchor="middle" font-family="Orbitron" font-size="10" fill="#00f7ff" opacity="0.9">NEURAL</text>
+          <text x="150" y="168" text-anchor="middle" font-family="Orbitron" font-size="8" fill="#6c63ff">CORE</text>
+          <!-- circuit nodes -->
+          <circle cx="70" cy="70" r="5" fill="#6c63ff"/>
+          <circle cx="230" cy="70" r="5" fill="#00f7ff"/>
+          <circle cx="70" cy="230" r="5" fill="#ff2e63"/>
+          <circle cx="230" cy="230" r="5" fill="#6c63ff"/>
+          <line x1="70" y1="70" x2="150" y2="150" stroke="#6c63ff" stroke-width="0.7" opacity="0.4"/>
+          <line x1="230" y1="70" x2="150" y2="150" stroke="#00f7ff" stroke-width="0.7" opacity="0.4"/>
+          <line x1="70" y1="230" x2="150" y2="150" stroke="#ff2e63" stroke-width="0.7" opacity="0.4"/>
+          <line x1="230" y1="230" x2="150" y2="150" stroke="#6c63ff" stroke-width="0.7" opacity="0.4"/>
+          <!-- rotating ring -->
+          <circle cx="150" cy="150" r="95" fill="none" stroke="rgba(0,247,255,0.15)" stroke-width="1" stroke-dasharray="3 6">
+            <animateTransform attributeName="transform" type="rotate" from="0 150 150" to="360 150 150" dur="10s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+      <div class="about-corner tl"></div><div class="about-corner tr"></div>
+      <div class="about-corner bl"></div><div class="about-corner br"></div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-tag">Mission Statement</div>
+      <h3 style="font-family:'Orbitron',monospace;font-size:1.6rem;margin:.5rem 0 1.5rem;color:var(--white);">Humanity <span style="color:var(--cyan)">Upgraded</span></h3>
+      <p>The <span>Cyborg Initiative</span> combines AI, robotics, neural engineering, and biotechnology to create the next generation of human enhancement — a seamless fusion of biology and technology.</p>
+      <p>Our research pushes beyond the boundaries of what is humanly possible, integrating <span>quantum processors</span>, nano-scale healing agents, and direct neural interfaces into the human form.</p>
+      <p>This is not science fiction. This is <span>the roadmap to 2050</span>.</p>
+      <div class="about-stats">
+        <div class="a-stat"><div class="num">47+</div><div class="lbl">Research Teams</div></div>
+        <div class="a-stat"><div class="num">12</div><div class="lbl">Countries</div></div>
+        <div class="a-stat"><div class="num">₹2B+</div><div class="lbl">R&D Funding</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUGMENTS -->
+<section id="augments">
+  <div class="section-header reveal">
+    <div class="section-tag">Upgrade Catalog</div>
+    <h2 class="section-title">Cyber <span style="color:var(--cyan)">Augments</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="aug-grid">
+    <div class="aug-card reveal">
+      <div class="aug-badge">NEURAL</div>
+      <div class="aug-icon">🧠</div>
+      <h3>Neural Link</h3>
+      <p>Direct brain-computer interface for enhanced intelligence, memory recall, and wireless connectivity at the speed of thought.</p>
+    </div>
+    <div class="aug-card reveal">
+      <div class="aug-badge">OPTICAL</div>
+      <div class="aug-icon">👁️</div>
+      <h3>Bionic Vision</h3>
+      <p>4K enhanced visual system with night vision, AR overlay, threat detection, and 400% improved visual acuity.</p>
+    </div>
+    <div class="aug-card reveal">
+      <div class="aug-badge">PHYSICAL</div>
+      <div class="aug-icon">💪</div>
+      <h3>Titanium Limbs</h3>
+      <p>Military-grade prosthetic limbs providing strength beyond human limits, with precision motor control and haptic feedback.</p>
+    </div>
+    <div class="aug-card reveal">
+      <div class="aug-badge">BIO</div>
+      <div class="aug-icon">⚡</div>
+      <h3>Nano Healing</h3>
+      <p>Nanobots in the bloodstream enabling rapid self-repair, disease elimination, and cellular regeneration in real-time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-header reveal">
+    <div class="section-tag">Core Systems</div>
+    <h2 class="section-title">Core <span style="color:var(--purple)">Features</span></h2>
+    <div class="section-line" style="background:var(--purple);box-shadow:0 0 10px var(--purple);"></div>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card reveal">
+      <div class="feat-icon">🤖</div>
+      <h3>AI Integration</h3>
+      <p>Real-time decision making powered by onboard neural AI with contextual awareness and adaptive responses.</p>
+    </div>
+    <div class="feat-card reveal">
+      <div class="feat-icon">⚛️</div>
+      <h3>Quantum Processing</h3>
+      <p>Ultra-fast quantum calculations enabling computations beyond classical computing at room temperature.</p>
+    </div>
+    <div class="feat-card reveal">
+      <div class="feat-icon">📡</div>
+      <h3>Adaptive Learning</h3>
+      <p>Self-improving intelligence that evolves with every experience, continuously optimizing performance metrics.</p>
+    </div>
+    <div class="feat-card reveal">
+      <div class="feat-icon">🔒</div>
+      <h3>Secure Architecture</h3>
+      <p>Military-grade biometric encryption protecting neural data with quantum-resistant cryptographic protocols.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="section-header reveal">
+    <div class="section-tag">Development Roadmap</div>
+    <h2 class="section-title">The <span style="color:var(--cyan)">Timeline</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="timeline-wrap reveal">
+    <div class="timeline-line"></div>
+    <div class="timeline-track">
+      <div class="tl-item active"><div class="tl-dot"></div><div class="tl-year">2025</div><div class="tl-label">Concept</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2030</div><div class="tl-label">Prototype</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2035</div><div class="tl-label">Neural Testing</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2040</div><div class="tl-label">Human Trials</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2050</div><div class="tl-label">Global Launch</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="comparison" style="padding:100px 5%;">
+  <div class="section-header reveal">
+    <div class="section-tag">Evolution Chart</div>
+    <h2 class="section-title">Human <span style="color:var(--red)">vs</span> Cyborg</h2>
+    <div class="section-line" style="background:var(--red);box-shadow:0 0 10px var(--red);"></div>
+  </div>
+  <div class="comp-wrap reveal">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th class="human">🧬 HUMAN</th>
+          <th class="vs">VS</th>
+          <th class="cyborg">⚡ CYBORG</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="human-td">Normal Vision</td><td class="vs-td">→</td><td class="cyborg-td">4K Enhanced Vision</td></tr>
+        <tr><td class="human-td">Limited Memory</td><td class="vs-td">→</td><td class="cyborg-td">Expanded Neural Memory</td></tr>
+        <tr><td class="human-td">Physical Fatigue</td><td class="vs-td">→</td><td class="cyborg-td">Extended Endurance</td></tr>
+        <tr><td class="human-td">Slow Learning</td><td class="vs-td">→</td><td class="cyborg-td">AI-Assisted Learning</td></tr>
+        <tr><td class="human-td">Slow Healing</td><td class="vs-td">→</td><td class="cyborg-td">Nano Self-Repair</td></tr>
+        <tr><td class="human-td">Single Processing</td><td class="vs-td">→</td><td class="cyborg-td">Quantum Parallel Computing</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-header reveal">
+    <div class="section-tag">Field Reports</div>
+    <h2 class="section-title">Early <span style="color:var(--cyan)">Adopters</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="star-row"><span>★★★★★</span></div>
+      <p class="testi-text">The neural link completely changed my life. I process information 10x faster and my memory is perfect. This isn't an upgrade — it's a rebirth.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AX</div>
+        <div><div class="testi-name">AGENT X-7</div><div class="testi-role">Neural Pilot, 2040</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="star-row"><span>★★★★★</span></div>
+      <p class="testi-text">The future of humanity lies in augmentation. Cyborg X gave me capabilities I never thought possible. We are witnessing the next evolution of our species.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,var(--red),var(--purple));">DR</div>
+        <div><div class="testi-name">DR. NOVA REYES</div><div class="testi-role">Lead Biotech Researcher</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="star-row"><span>★★★★★</span></div>
+      <p class="testi-text">Beyond my wildest imagination. The titanium limbs respond to my thoughts. The bionic vision sees through walls. I am no longer just human — I am beyond.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,var(--cyan),var(--red));">CM</div>
+        <div><div class="testi-name">COMMANDER M</div><div class="testi-role">Special Operations, Prototype Unit</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-bg-text">EVOLVE</div>
+  <span class="cta-tag">// INITIATE EVOLUTION SEQUENCE</span>
+  <h2 class="cta-h2 reveal">READY FOR<br><span>EVOLUTION?</span></h2>
+  <p class="cta-sub reveal">Join thousands of pioneers already on the path to becoming something greater than human. The future waits for no one.</p>
+  <a href="#" class="btn-cta reveal">JOIN THE CYBORG INITIATIVE</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">CYBORG<span style="color:var(--purple)">X</span></div>
+  <div class="footer-info">
+    <p>🏆 Techfest IIT Bombay Submission</p>
+    <p style="margin-top:.3rem;">Created by <strong style="color:var(--cyan)">Yash Patel</strong> &nbsp;|&nbsp; <a href="https://github.com/" target="_blank">GitHub Repository</a></p>
+  </div>
+  <div class="footer-credit"><span>© 2025 CYBORG X</span><br>All augmentations reserved.</div>
+</footer>
+
+<!-- AI FLOATING BUTTON -->
+<button id="ai-btn" title="AI Assistant">🤖</button>
+<div id="ai-panel">
+  <h4>⚡ CYBORG AI ASSISTANT</h4>
+  <div id="ai-msgs">
+    <div class="bot">&gt; System online. How can I assist, human?</div>
+  </div>
+  <div id="ai-input-wrap">
+    <input id="ai-input" type="text" placeholder="Ask anything..." />
+    <button id="ai-send">SEND</button>
+  </div>
+</div>
+
+<!-- MUSIC TOGGLE -->
+<button id="music-btn" title="Toggle Music">🔇</button>
+
+<!-- THEME TOGGLE -->
+<button id="theme-btn" title="Toggle Theme">🌙</button>
+
+<script>
+// ===== CURSOR =====
+const cursor = document.getElementById('cursor');
+const dot = document.getElementById('cursor-dot');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  dot.style.left = e.clientX + 'px';
+  dot.style.top = e.clientY + 'px';
+});
+document.addEventListener('mousedown', () => cursor.style.transform = 'translate(-50%,-50%) scale(0.8)');
+document.addEventListener('mouseup', () => cursor.style.transform = 'translate(-50%,-50%) scale(1)');
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1.5)'; cursor.style.borderColor = '#ff2e63'; });
+  el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; cursor.style.borderColor = '#00f7ff'; });
+});
+
+// ===== HAMBURGER =====
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('nav-links').classList.toggle('open');
+});
+
+// ===== SCROLL REVEAL =====
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(r => observer.observe(r));
+
+// ===== ANIMATED COUNTERS =====
+function animateCounter(el, target, suffix = '') {
+  let start = 0;
+  const duration = 2000;
+  const step = (timestamp) => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const val = Math.floor(ease * target);
+    if (suffix === '.9%') {
+      el.textContent = (val / 10).toFixed(1) + '%';
+    } else {
+      el.textContent = val.toLocaleString() + (target >= 5000 ? '+' : target === 250 ? '+' : '');
+    }
+    if (progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const statObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const nums = e.target.querySelectorAll('[data-target]');
+      nums.forEach(n => {
+        const t = parseInt(n.dataset.target);
+        const s = n.dataset.suffix || '';
+        animateCounter(n, t, s);
+      });
+      statObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.getElementById('stats') && statObs.observe(document.getElementById('stats'));
+
+// ===== TIMELINE ANIMATE =====
+const tlObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const items = e.target.querySelectorAll('.tl-item');
+      items.forEach((item, i) => {
+        setTimeout(() => item.classList.add('active'), i * 400);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+const tl = document.getElementById('timeline');
+if (tl) tlObs.observe(tl);
+
+// ===== MUSIC TOGGLE =====
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx = null, musicPlaying = false;
+let gainNode = null, oscillators = [];
+function startMusic() {
+  audioCtx = new AudioCtx();
+  gainNode = audioCtx.createGain();
+  gainNode.gain.value = 0.06;
+  gainNode.connect(audioCtx.destination);
+  // Ambient drone
+  const freqs = [55, 82.5, 110, 165];
+  freqs.forEach((f, i) => {
+    const osc = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    osc.type = i % 2 === 0 ? 'sine' : 'triangle';
+    osc.frequency.value = f;
+    g.gain.value = i === 0 ? 1 : 0.5;
+    osc.connect(g); g.connect(gainNode);
+    osc.start();
+    oscillators.push(osc);
+  });
+}
+function stopMusic() {
+  oscillators.forEach(o => { try { o.stop(); } catch(e){} });
+  oscillators = [];
+  if (audioCtx) audioCtx.close();
+}
+document.getElementById('music-btn').addEventListener('click', function() {
+  if (!musicPlaying) {
+    startMusic(); musicPlaying = true;
+    this.textContent = '🔊'; this.classList.add('playing');
+  } else {
+    stopMusic(); musicPlaying = false;
+    this.textContent = '🔇'; this.classList.remove('playing');
+  }
+});
+
+// ===== THEME TOGGLE =====
+document.getElementById('theme-btn').addEventListener('click', function() {
+  document.body.classList.toggle('light');
+  this.textContent = document.body.classList.contains('light') ? '🌞' : '🌙';
+});
+
+// ===== AI ASSISTANT =====
+const aibtn = document.getElementById('ai-btn');
+const aipanel = document.getElementById('ai-panel');
+const aimsgs = document.getElementById('ai-msgs');
+const aiinput = document.getElementById('ai-input');
+aibtn.addEventListener('click', () => aipanel.classList.toggle('open'));
+
+const responses = [
+  "Scanning neural pathways... Augmentation Level: MAXIMUM 🧠",
+  "Processing quantum data... Your upgrade is ready, human. ⚡",
+  "Cyborg Initiative Status: ONLINE. Welcome to the future. 🤖",
+  "Neural sync at 99.9% — you are evolving. 💫",
+  "Accessing biometric database... Identity confirmed. Proceed. 🔒",
+  "The future is not a destination. It's an upgrade. 🚀",
+  "CYBORG X reports: Humanity 2.0 is online and operational. ⚛️",
+];
+function addMsg(text, cls) {
+  const d = document.createElement('div');
+  d.className = cls; d.textContent = text;
+  aimsgs.appendChild(d);
+  aimsgs.scrollTop = aimsgs.scrollHeight;
+}
+function sendAI() {
+  const v = aiinput.value.trim();
+  if (!v) return;
+  addMsg('> ' + v, 'user');
+  aiinput.value = '';
+  setTimeout(() => {
+    addMsg('>> ' + responses[Math.floor(Math.random() * responses.length)], 'bot');
+  }, 600);
+}
+document.getElementById('ai-send').addEventListener('click', sendAI);
+aiinput.addEventListener('keydown', e => { if (e.key === 'Enter') sendAI(); });
+
+// ===== GLITCH EFFECT ON LOGO =====
+const logo = document.querySelector('.nav-logo');
+if (logo) {
+  setInterval(() => {
+    logo.style.textShadow = `0 0 20px #ff2e63, 0 0 40px #ff2e63`;
+    setTimeout(() => { logo.style.textShadow = '0 0 20px var(--cyan), 0 0 40px var(--cyan)'; }, 100);
+  }, 4000);
+}
+
+// ===== PARTICLE TRAIL =====
+document.addEventListener('mousemove', e => {
+  if (Math.random() > 0.85) {
+    const p = document.createElement('div');
+    p.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:4px;height:4px;background:#00f7ff;border-radius:50%;pointer-events:none;z-index:9998;opacity:0.8;transition:all 0.8s ease;box-shadow:0 0 6px #00f7ff;`;
+    document.body.appendChild(p);
+    setTimeout(() => { p.style.opacity = '0'; p.style.transform = `translate(${(Math.random()-0.5)*40}px,${-30-Math.random()*20}px) scale(0.1)`; }, 50);
+    setTimeout(() => p.remove(), 900);
+  }
+});
+</script>
+</body>
+</html>
